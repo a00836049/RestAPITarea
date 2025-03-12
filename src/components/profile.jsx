@@ -1,3 +1,5 @@
+// src/components/profile.jsx
+
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -13,7 +15,8 @@ export default function Profile({ setIsLoggedIn }) {
   const user = JSON.parse(localStorage.getItem('user'));
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem("token"); // Eliminar token
+    localStorage.removeItem("user"); // Eliminar datos del usuario
     setIsLoggedIn(false);
     navigate('/');
   };

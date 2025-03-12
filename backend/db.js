@@ -1,3 +1,5 @@
+// backend/db.js
+
 require('dotenv').config();
 const hana = require('@sap/hana-client');
 

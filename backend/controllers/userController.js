@@ -1,3 +1,5 @@
+// backend/controllers/userController.js
+
 const { connection } = require("../db");
 const bcrypt = require("bcrypt");
 

@@ -1,3 +1,5 @@
+// src/components/dashboard.jsx
+
 import React from 'react';
 import { Typography, Paper, Box } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
