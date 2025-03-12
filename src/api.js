@@ -32,6 +32,25 @@ export const getUsers = async () => {
     }
 };
 
+// Actualizar usuario
+export const updateUser = async (id, data) => {
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            console.error("No hay token disponible.");
+            return null;
+        }
+
+        const response = await axios.put(`${API_URL}/users/${id}`, data, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error al actualizar usuario:", error);
+        return null;
+    }
+};
+
 export const loginUser = async (email, password) => {
     try {
         const response = await axios.post(`${API_URL}/login`, { EMAIL: email, PASSWORDHASH: password });
