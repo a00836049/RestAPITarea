@@ -5,9 +5,17 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function MenuBar({ isLoggedIn }) {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      localStorage.setItem("lastPath", location.pathname); // Guardar la ruta actual
+    }
+  }, [location, isLoggedIn]);
+
   return (
     <AppBar position="static">
       <Toolbar>
