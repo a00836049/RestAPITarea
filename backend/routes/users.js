@@ -7,7 +7,7 @@ const verifyToken = require("../middleware/authMiddleware");
 const router = express.Router();
 
 router.get("/", verifyToken, getUsers); // Protegido
-router.post("/", verifyToken, createUser); // Protegido
+router.post("/", createUser); // Público (permite crear usuarios sin token)
 router.get("/:ID", verifyToken, getUserById); // Protegido
 router.put("/:ID", verifyToken, updateUser); // Protegido
 router.delete("/:ID", verifyToken, deleteUser); // Protegido
