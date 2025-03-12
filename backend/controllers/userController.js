@@ -15,6 +15,24 @@ const getUsers = async (req, res) => {
     }
 };
 
+const getUserById = async (req, res) => {
+    const { ID } = req.params;
+    try {
+        const query = `SELECT * FROM User WHERE ID = ${ID}`;
+        connection.exec(query, (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: "Error al obtener el usuario" });
+            }
+            if (result.length === 0) {
+                return res.status(404).json({ error: "Usuario no encontrado" });
+            }
+            res.json(result[0]);
+        });
+    } catch (error) {
+        res.status(500).json({ error: "Error al obtener el usuario" });
+    }
+};
+
 const createUser = async (req, res) => {
     const { NAME, EMAIL, PASSWORDHASH } = req.body;
     if (!NAME || !EMAIL || !PASSWORDHASH) {
@@ -83,4 +101,4 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { getUsers, createUser, updateUser, deleteUser };
+module.exports = { getUsers, createUser, updateUser, deleteUser, getUserById };
