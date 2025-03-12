@@ -51,6 +51,26 @@ export const updateUser = async (id, data) => {
     }
 };
 
+export const deleteUser = async (id) => {
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            console.error("No hay token disponible.");
+            return null;
+        }
+
+        const response = await axios.delete(`${API_URL}/users/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error("Error al eliminar usuario:", error);
+        return null;
+    }
+};
+
+
 export const loginUser = async (email, password) => {
     try {
         const response = await axios.post(`${API_URL}/login`, { EMAIL: email, PASSWORDHASH: password });

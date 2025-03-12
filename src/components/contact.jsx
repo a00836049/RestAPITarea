@@ -1,7 +1,7 @@
 // src/components/contact.jsx
 
 import React, { useState, useEffect } from "react";
-import { getUsers, updateUser } from "../api";
+import { getUsers, updateUser, deleteUser } from "../api";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -53,6 +53,18 @@ export default function Contact() {
       setUsers(users.map(user => (user.ID === editingUser ? { ...user, ...updatedUser } : user)));
       setEditingUser(null);
       setEditedData({ NAME: "", EMAIL: "", PASSWORDHASH: "" });
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este usuario?");
+    if (!confirmDelete) return;
+
+    const response = await deleteUser(id);
+    if (response) {
+      setUsers(users.filter(user => user.ID !== id));
+    } else {
+      alert("Error al eliminar el usuario.");
     }
   };
 
@@ -114,6 +126,7 @@ export default function Contact() {
                         <TableCell>*******</TableCell> {/* No mostramos la contraseña */}
                         <TableCell>
                           <Button variant="contained" color="primary" onClick={() => handleEdit(user)}>Editar</Button>
+                          <Button variant="contained" color="error" onClick={() => handleDelete(user.ID)} sx={{ ml: 1 }}>Eliminar</Button>
                         </TableCell>
                       </>
                     )}
